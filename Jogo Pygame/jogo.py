@@ -4,8 +4,10 @@ from sys import exit
 from random import randint
 
 pygame.init()
+pygame.mixer.init()
 
-musica_fundo = pygame.mixer.music.load('BoxCat Games - Trace Route.mp3')
+#colocando som de fundo
+musica = pygame.mixer.music.load('Sons do Jogo/musicaFundo.mp3')
 
 #abaixando o som da musica de fundo
 pygame.mixer.music.set_volume(0.1)
@@ -20,7 +22,7 @@ y_cobra = int(altura / 2)
 
 #som da colisão
 
-som = pygame.mixer.Sound('smw_coin.wav')
+som = pygame.mixer.Sound('Sons do Jogo/somColisao.wav')
 som.set_volume(1.00)
 
 #variaveis para que consiga gerar numeros aleatorios da posição do retangulo azul
@@ -54,23 +56,40 @@ while True:
             exit()
 
         #fazendo com que o retangulo se mova quando estiver pressionando a tecla
-        if pygame.key.get_pressed()[K_a]:
+            
+        teclas = pygame.key.get_pressed()
+
+        if teclas[K_a]:
             x_cobra -= 20
 
-        if pygame.key.get_pressed()[K_d]:
+        if teclas[K_d]:
             x_cobra += 20
 
-        if pygame.key.get_pressed()[K_w]:
+        if teclas[K_w]:
             y_cobra -= 20
 
-        if pygame.key.get_pressed()[K_s]:
+        if teclas[K_s]:
             y_cobra += 20
 
-        # Desenhar o retângulo vermelho
-    cobra = pygame.draw.rect(tela, (0, 255, 0), (x_cobra, y_cobra, 20, 20))  
+        #evitando que a cobra saia da janela
+        
+        if x_cobra < 0:
+            x_cobra = 0
 
-        #Desenhando o retangulo azul
-    maca = pygame.draw.rect(tela, (255,0,0), (x_maca, y_maca,20,20))
+        elif x_cobra > largura - 20:
+            x_cobra = largura - 20
+
+        if y_cobra < 0:
+            y_cobra = 0
+
+        elif y_cobra > altura -20:
+            y_cobra = altura -20
+
+        # Desenhar a cobra
+        cobra = pygame.draw.rect(tela, (0, 255, 0), (x_cobra, y_cobra, 20, 20))  
+
+        #Desenhando a maça
+        maca = pygame.draw.rect(tela, (255,0,0), (x_maca, y_maca,20,20))
 
     if cobra.colliderect(maca): # ver se houve colisão
         x_maca = randint(40,600)
