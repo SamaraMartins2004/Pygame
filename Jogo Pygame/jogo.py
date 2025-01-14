@@ -3,27 +3,24 @@ from pygame.locals import *
 from sys import exit
 from random import randint
 
+#inicialização
 pygame.init()
 pygame.mixer.init()
 
-#colocando som de fundo
+#Sons
 musica = pygame.mixer.music.load('Sons do Jogo/musicaFundo.mp3')
-
-#abaixando o som da musica de fundo
-pygame.mixer.music.set_volume(0.1)
+pygame.mixer.music.set_volume(0.1) #abaixando o som da musica de fundo
 pygame.mixer.music.play(-1) #o -1 serve para a musica ficar repetindo (em loop)
+som = pygame.mixer.Sound('Sons do Jogo/somColisao.wav') #som da colisão
+som.set_volume(1.00)
 
-# Definindo o tamanho da janela no jogo
+# Janela
 largura = 640
 altura = 480
+tamanho_cobra =     A
 
 x_cobra = int(largura / 2)
 y_cobra = int(altura / 2)
-
-#som da colisão
-
-som = pygame.mixer.Sound('Sons do Jogo/somColisao.wav')
-som.set_volume(1.00)
 
 #variaveis para que consiga gerar numeros aleatorios da posição do retangulo azul
 
@@ -47,7 +44,7 @@ relogio = pygame.time.Clock()
 while True:
 
     relogio.tick(50)
-    tela.fill((255, 255, 255))  # Cor preta no fundo
+    tela.fill((255, 255, 255))  # Cor branca no fundo
 
     # Verificar eventos
     for event in pygame.event.get():
